@@ -1,0 +1,6 @@
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\bin\Debug\CoursCSharp.exe.config
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\bin\Debug\CoursCSharp.exe
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\bin\Debug\CoursCSharp.pdb
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\obj\Debug\CoursCSharp.csprojResolveAssemblyReference.cache
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\obj\Debug\CoursCSharp.exe
+Z:\Dev\CSharp\CoursCSharp\CoursCSharp\obj\Debug\CoursCSharp.pdb

@@ -124,14 +124,12 @@ namespace CoursCSharp
                 refaire = Int32.Parse(Console.ReadLine());
                 while (refaire < 0 || refaire > 1)
                 {
-                        Console.WriteLine("Voullez-vous refaire un calcul : 1 -> refaire | 0 -> Quitter?");
-                        refaire = Int32.Parse(Console.ReadLine());
-                } 
-//                Console.ReadKey();
+                    Console.WriteLine("Voullez-vous refaire un calcul : 1 -> refaire | 0 -> Quitter?");
+                    refaire = Int32.Parse(Console.ReadLine());
+                }
+                //                Console.ReadKey();
 
             } while (refaire == 1);
-
-
         }
     }
 }

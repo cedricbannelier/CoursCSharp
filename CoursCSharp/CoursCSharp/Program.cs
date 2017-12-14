@@ -6,45 +6,81 @@ using System.Threading.Tasks;
 
 namespace CoursCSharp
 {
+    enum TypeOperateur
+    {
+        Addition,
+        Soustraction,
+        Multiplication,
+        Division,
+        Puissance,
+        OperateurNonReconnu,
+    }
+    class Operation
+    {
+        public TypeOperateur _operateur;
+        public int _nombreA;
+        public int _nombreB;
+        public Double GetResult()
+        {
+            while (this._operateur != TypeOperateur.OperateurNonReconnu)
+            {
+                switch (this._operateur)
+                {
+                    case TypeOperateur.Addition:
+                        return (this._nombreA + this._nombreB);
+                    case TypeOperateur.Soustraction:
+                        return (this._nombreA - this._nombreB);
+                    case TypeOperateur.Multiplication:
+                        return (this._nombreA * this._nombreB);
+                    case TypeOperateur.Division:
+                        if (this._nombreB == 0)
+                        {
+                            return 0;
+                        }
+                        return (this._nombreA / this._nombreB);
+                    case TypeOperateur.Puissance:
+                        if (this._nombreB < 0)
+                        {
+                            return 0;
+                        }
+
+                        return Math.Pow(this._nombreA, this._nombreB);
+                    case TypeOperateur.OperateurNonReconnu:
+                        return 0;
+                    default:
+                        return 0;
+                }
+
+            }
+            return 0;
+        }
+    }
     class Program
     {
-        enum Operations
-        {
-            Addition,
-            Soustraction,
-            Multiplication,
-            Division,
-            Puissance,
-            OperateurNonReconnu,
-        }
         static int DemanderSaisieNombreEnAffichantUnMessage(string messageAAfficherALutilisateur)
         {
             Console.WriteLine(messageAAfficherALutilisateur);
             return Int32.Parse(Console.ReadLine());
         }
-        static Operations DemanderSaisieOperateurEnAffichantUnMessage(string message)
+        static TypeOperateur DemanderSaisieOperateurEnAffichantUnMessage(string message)
         {
             Console.WriteLine(message);
             string saisieOperateur = Console.ReadLine();
+
             switch (saisieOperateur)
             {
                 case "+":
-                    return Operations.Addition;
-                    break;
+                    return TypeOperateur.Addition;
                 case "-":
-                    return Operations.Soustraction;
-                    break;
+                    return TypeOperateur.Soustraction;
                 case "*":
-                    return Operations.Multiplication;
-                    break;
+                    return TypeOperateur.Multiplication;
                 case "/":
-                    return Operations.Division;
-                    break;
+                    return TypeOperateur.Division;
                 case "^":
-                    return Operations.Puissance;
-                    break;
+                    return TypeOperateur.Puissance;
                 default:
-                    return Operations.OperateurNonReconnu;
+                    return TypeOperateur.OperateurNonReconnu;
             }
 
         }
@@ -68,68 +104,44 @@ namespace CoursCSharp
         {
             return Math.Pow(nombreA, nombreB);
         }
+        static void AfficheHistorique(List<Operation> listeDesOperationsAAfficher)
+        {
+            foreach (Operation i in listeDesOperationsAAfficher)
+            {
+                Console.WriteLine(i._nombreA + " " + i._operateur + " " + i._nombreB);
+            }
+        }
         static void Main(string[] args)
         {
-            int refaire = 1;
-
+            Operation monOperation;
+            List<Operation> historique = new List<Operation>();
             do
             {
                 //Appel de la méthode DemanderSaisieOperateurEnAffichantUnMessage
-                Operations saisieOperateur = DemanderSaisieOperateurEnAffichantUnMessage("Veuillez choisir votre opérateur : +, -, *, /, ^");
+                TypeOperateur saisieOperateur = DemanderSaisieOperateurEnAffichantUnMessage("Veuillez choisir votre opérateur : +, -, *, /, ^");
 
                 //Appel de la méthode DemanderSaisieNombreEnAffichantUnMessage
                 int nombreA = DemanderSaisieNombreEnAffichantUnMessage("Veuillez saisir le premier nombre entier");
                 int nombreB = DemanderSaisieNombreEnAffichantUnMessage("Veuillez saisir le second nombre entier");
 
-                if (nombreA == 0 && nombreB == 0)
+                monOperation = new Operation();
+                monOperation._operateur = saisieOperateur;
+                monOperation._nombreA = nombreA;
+                monOperation._nombreB = nombreB;
+
+                if (monOperation._nombreB != 0 || monOperation._operateur != TypeOperateur.Division)
                 {
-                    Console.WriteLine("Aucun calcul possible");
+                    double afficheResultat = monOperation.GetResult();
+                    historique.Add(monOperation);
+                    Console.WriteLine("Le resultat est {0}", afficheResultat);
                 }
                 else
                 {
-                    switch (saisieOperateur)
-                    {
-                        case Operations.Addition:
-                            Console.WriteLine("Addition " + nombreA + " + " + nombreB + " = " + (Addition(nombreA, nombreB)));
-                            break;
-                        case Operations.Soustraction:
-                            Console.WriteLine("Soustraction " + nombreA + " - " + nombreB + " = " + (Soustraction(nombreA, nombreB)));
-                            break;
-                        case Operations.Multiplication:
-                            Console.WriteLine("Multiplication " + nombreA + " * " + nombreB + " = " + (Multiplication(nombreA, nombreB)));
-                            break;
-                        case Operations.Division:
-                            if (nombreB == 0)
-                            {
-                                Console.WriteLine("Division impossible par 0");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Division " + nombreA + " / " + nombreB + " = " + (Division(nombreA, nombreB)));
-                            }
-                            break;
-                        case Operations.Puissance:
-                            if (nombreB < 0)
-                            {
-                                Console.WriteLine("Puissance impossible");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Puissance " + nombreA + " ^ " + nombreB + " = " + (Puissance(nombreA, nombreB)));
-                            }
-                            break;
-                    }
+                    Console.WriteLine("Divison impossible");
                 }
-                Console.WriteLine("Voullez-vous refaire un calcul : 1 -> refaire | 0 -> Quitter?");
-                refaire = Int32.Parse(Console.ReadLine());
-                while (refaire < 0 || refaire > 1)
-                {
-                    Console.WriteLine("Voullez-vous refaire un calcul : 1 -> refaire | 0 -> Quitter?");
-                    refaire = Int32.Parse(Console.ReadLine());
-                }
-                //                Console.ReadKey();
-
-            } while (refaire == 1);
+            } while (monOperation._operateur != TypeOperateur.OperateurNonReconnu);
+            AfficheHistorique(historique);
+            Console.ReadKey();
         }
     }
 }

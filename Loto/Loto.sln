@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{42626CA4-B944-48F2-9DF0-26E32F434590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loto", "Loto\Loto.csproj", "{ABA3E901-30B4-4D54-8337-2B46E6A20C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42626CA4-B944-48F2-9DF0-26E32F434590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42626CA4-B944-48F2-9DF0-26E32F434590}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42626CA4-B944-48F2-9DF0-26E32F434590}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42626CA4-B944-48F2-9DF0-26E32F434590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA3E901-30B4-4D54-8337-2B46E6A20C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA3E901-30B4-4D54-8337-2B46E6A20C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA3E901-30B4-4D54-8337-2B46E6A20C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA3E901-30B4-4D54-8337-2B46E6A20C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

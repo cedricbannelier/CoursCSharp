@@ -22,52 +22,30 @@ namespace relationsEntreClasses
                 Console.WriteLine("Ils ne se touchent pas");
             }
         }
-        class Disque
-        {
-            public double rayon;
-            public Point centre;
-            public Disque()
-            {
-                this.centre = new Point();
-            }
-
-            public static bool disqueTouche(Disque a, Disque b)
-            {
-                 if (a.rayon + b.rayon > Point.distanceEntreDeuxPoints(a.centre, b.centre))
-                {
-                    return true;
-                } 
-                else
-                {
-                    return false;
-                }               
-
-            }
-
-            public double GetArea()
-            {
-                return Math.PI * this.rayon * this.rayon;
-            }
-
-            public double GetPerimeter()
-            {
-                return 2 * Math.PI * this.rayon;
-            }
-        }
 
         class Point
         {
+            public int X { get; set; }
+            public int Y { get; set; }
+
+            public Point(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
+/*
             public double X;
             public double Y;
             public Point()
             {
             }
+
             public Point(double posX, double posY)
             {
                 this.X = posX;
                 this.Y = posY;
             }
-
+*/
             public static double distanceEntreDeuxPoints(Point a, Point b)
             {
                 return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
@@ -75,16 +53,16 @@ namespace relationsEntreClasses
         }
         class Triangle
         {
-            public Point pA;
-            public Point pB;
-            public Point pC;
-            public Triangle()
+            public Point pA { get; set; }
+            public Point pB { get; set; }
+            public Point pC { get; set; }
+/*            public Triangle()
             {
                 this.pA = new Point();
                 this.pB = new Point();
                 this.pC = new Point();
             }
-            public Triangle(Point premierPoint, Point secondPoint, Point troisiemePoint)
+*/            public Triangle(Point premierPoint, Point secondPoint, Point troisiemePoint)
             {
                 this.pA = premierPoint;
                 this.pB = secondPoint;
@@ -107,16 +85,16 @@ namespace relationsEntreClasses
         }
         class Rectangle
         {
-            public Point pA;
-            public Point pB;
+            public Point pA { get; set; }
+            public Point pB { get; set; }
 
             //Constructeur avec des valeurs
-            public Rectangle()
+/*            public Rectangle()
             {
                 this.pA = new Point();
                 this.pB = new Point();
             }
-            public double GetArea()
+*/            public double GetArea()
             {
                 double largeur = Math.Abs(pA.X - pB.X);
                 double hauteur = Math.Abs(pA.Y - pB.Y);
@@ -130,7 +108,7 @@ namespace relationsEntreClasses
         }
         static void Main(string[] args)
         {
-            Triangle nouveauTriangle = new Triangle();
+            Triangle nouveauTriangle = new Triangle(5,10,10,15,7,20);
 
             nouveauTriangle.pA.X = 5;
             nouveauTriangle.pA.Y = 10;
@@ -164,40 +142,6 @@ namespace relationsEntreClasses
             disque2.centre.Y = 20;
 
             reponseSeTouche(Disque.disqueTouche(disque1, disque2)); 
-
-
-
-            /*
-            //Instance du Disque
-            Disque nouveauDisque = new Disque();
-
-            //Instance du Rectangle
-            Rectangle nouveauRectanble = new Rectangle();
-
-
-
-            Console.WriteLine("Distance entre les deux points {0}", nouveauPoint.DistanceEntreDeuxPoints());
-
-            //Demande à l'utilisateur de renseigner le rayon
-            Console.WriteLine("Veuillez choisir un rayon");
-            nouveauDisque.rayon = Double.Parse(Console.ReadLine());
-
-            //Affiche l'aire et le périmètre
-            Console.WriteLine("L'aire du disque : {0}", nouveauDisque.GetArea());
-            Console.WriteLine("Le périmètre du disque : {0}\n", nouveauDisque.GetPerimeter());
-
-            //Demande à l'utilisateur la hauteur
-            Console.WriteLine("Veuillez choisir la hauteur du rectangle");
-            nouveauRectanble.hauteur = Double.Parse(Console.ReadLine());
-
-            //Demande à l'utilisateur la largeur
-            Console.WriteLine("Veuillez choisir la largeur du rectangle");
-            nouveauRectanble.largeur = Double.Parse(Console.ReadLine());
-
-            //Affiche l'aire et le périmètre du rectangle
-            Console.WriteLine("L'aire du rectanble : {0}", nouveauRectanble.GetArea());
-            Console.WriteLine("Le périmètre du rectangle : {0}", nouveauRectanble.GetPerimeter());
-            */
 
             Console.ReadKey();
 

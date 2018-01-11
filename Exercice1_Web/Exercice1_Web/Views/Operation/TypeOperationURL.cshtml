@@ -1,0 +1,21 @@
+﻿@model Exercice1_Web.Models.Operation
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TypeOperationURL</title>
+</head>
+<body>
+    <div>
+        <p>@Model.GetRepresentationTextuelle()</p>
+        <p>@Model.OperandeDroite @Model.OperandeGauche @Model.Operateur</p>
+    </div>
+</body>
+</html>

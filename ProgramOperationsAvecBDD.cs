@@ -8,9 +8,6 @@ using System.Data.SqlClient;
 
 namespace ConsoleApplication2
 {
-    //Connection à la base de donnée
-    private static string SqlConnectionString = @"Server=.\SQLExpress;Database=Exo2;Trusted_Connection=Yes";
-
     /// <summary>
     /// Enumeration représentant les types d'opération gérées dans le système
     /// </summary>
@@ -116,21 +113,18 @@ namespace ConsoleApplication2
         {
             Console.WriteLine("Bienvenu sur la calculatrice");
 
-            List<Operation> operationsSaisies = new List<Operation>();
-
             bool shouldContinue = true;
             while (shouldContinue)
             {
 
                 string saisieOperateur = DemandeQuelquechose("Operateur : ");
-                TypeOperateur operateur = TraduireSaisieUtilisateurOperateur(saisieOperateur);
+                TypeOperateur operateur = TraduireChaineDeCaractèreEnTypeOperateur(saisieOperateur);
 
                 if (operateur == TypeOperateur.Inconnu)
                 {
                     shouldContinue = false;
                 }
-                else
-                {
+                else {
                     string saisieGauche = DemandeQuelquechose("Gauche : ");
                     string saisieDroite = DemandeQuelquechose("Droite : ");
 
@@ -141,7 +135,7 @@ namespace ConsoleApplication2
 
                     if (operationSaisie.IsValide())
                     {
-                        operationsSaisies.Add(operationSaisie);
+                        SauvegarderBdd(operationSaisie);
                         Console.WriteLine(operationSaisie.GetRepresentationTextuelle());
                     }
                     else
@@ -151,11 +145,54 @@ namespace ConsoleApplication2
                 }
             }
 
-            AfficherHistorique(operationsSaisies);
+            AfficherHistoriqueDepuisBdd();
 
             Console.ReadLine();
         }
 
+        private const string SqlConnectionString = 
+            @"Server=.\SQLExpress;Initial Catalog=MaPremiereBDD; Trusted_Connection=Yes";
+
+        static void SauvegarderBdd(Operation operationASauvegarder)
+        {
+            SqlConnection connexion = new SqlConnection(SqlConnectionString);
+            connexion.Open();
+
+            SqlCommand command = new SqlCommand(
+                @"INSERT INTO Operation(Operateur, OperandeDroite, OperandeGauche) VALUES (@operateur, @droite, @gauche)"
+                , connexion);
+            command.Parameters.AddWithValue("@operateur", TraduireTypeOperateurEnOperateurBDD(operationASauvegarder.Operateur));
+            command.Parameters.AddWithValue("@droite", operationASauvegarder.OperandeDroite);
+            command.Parameters.AddWithValue("@gauche", operationASauvegarder.OperandeGauche);
+            command.ExecuteNonQuery();
+            connexion.Close();
+        }
+
+        static List<Operation> RecupererOperationsEnBDD()
+        {
+            List<Operation> resultats = new List<Operation>();
+
+            SqlConnection connexion = new SqlConnection(SqlConnectionString);
+            connexion.Open();
+
+            SqlCommand command = new SqlCommand("SELECT Operateur, OperandeDroite, OperandeGauche FROM Operation", connexion);
+            SqlDataReader reader= command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string operateurBdd = reader.GetString(0);
+                double droiteBdd = reader.GetFloat(1);
+                double gaucheBdd = reader.GetFloat(2);
+
+                TypeOperateur operateur = TraduireChaineDeCaractèreEnTypeOperateur(operateurBdd);
+
+                Operation operationLue = new Operation(operateur, droiteBdd, gaucheBdd);
+                resultats.Add(operationLue);
+            }
+
+            connexion.Close();
+            return resultats;
+        }
 
         static string DemandeQuelquechose(string texteAAfficher)
         {
@@ -163,6 +200,7 @@ namespace ConsoleApplication2
             string saisieGauche = Console.ReadLine();
             return saisieGauche;
         }
+
         private static void AfficherHistorique(List<Operation> historiqueSaisies)
         {
             foreach (Operation operationCourante in historiqueSaisies)
@@ -171,13 +209,18 @@ namespace ConsoleApplication2
             }
         }
 
+        private static void AfficherHistoriqueDepuisBdd()
+        {
+            List<Operation> operationsSauvegardeesEnBDD = RecupererOperationsEnBDD();
+            AfficherHistorique(operationsSauvegardeesEnBDD);
+        }
         static double TraduireSaisieUtilisateurNombre(string saisieUtilisateur)
         {
             return double.Parse(saisieUtilisateur, CultureInfo.InvariantCulture);
         }
 
 
-        static TypeOperateur TraduireSaisieUtilisateurOperateur(string saisieUtilisateur)
+        static TypeOperateur TraduireChaineDeCaractèreEnTypeOperateur(string saisieUtilisateur)
         {
             switch (saisieUtilisateur)
             {
@@ -193,6 +236,25 @@ namespace ConsoleApplication2
                     return TypeOperateur.Puissance;
                 default:
                     return TypeOperateur.Inconnu;
+            }
+        }
+
+        static char TraduireTypeOperateurEnOperateurBDD(TypeOperateur typeOperateur)
+        {
+            switch (typeOperateur)
+            {
+                case TypeOperateur.Multiplication:
+                    return '*';
+                case TypeOperateur.Addition:
+                    return '+';
+                case TypeOperateur.Soustraction:
+                    return '-';
+                case TypeOperateur.Division:
+                    return '/';
+                case TypeOperateur.Puissance:
+                    return '^';
+                default:
+                    return ' ';
             }
         }
     }

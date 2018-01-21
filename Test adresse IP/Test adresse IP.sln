@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test adresse IP", "Test adresse IP\Test adresse IP.csproj", "{9C5C922B-5676-4525-B994-A7C056F11DAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C5C922B-5676-4525-B994-A7C056F11DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5C922B-5676-4525-B994-A7C056F11DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5C922B-5676-4525-B994-A7C056F11DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5C922B-5676-4525-B994-A7C056F11DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44470B57-4AEF-46CB-81A5-24DA9C9FDBB6}
+	EndGlobalSection
+EndGlobal

@@ -31,8 +31,10 @@ namespace Exo2
         {
             Random rnd1 = new Random();
 
+            Console.WriteLine("*** Bienvenue dans le jeu le plus original du monde !!!!! ***\n\n");
+
             //Demande le pseudo
-            Console.WriteLine("Choisir votre pseudo du personne");
+            Console.WriteLine("Choisir votre pseudo de votre personnage");
             string pseudo = Console.ReadLine();
 
             //Instance de la class Personnage (Objet)
@@ -48,44 +50,51 @@ namespace Exo2
             Console.WriteLine("Nom du personnage : {0}\nPoint de vie : {1}", personnagePrincipal._pseudo, personnagePrincipal._pointDeVie);
             Console.WriteLine("Point de dégat : {0}\nValeur d'attaque : {1}", personnagePrincipal._pointDeDegat, personnagePrincipal._valeurDattaque);
 
-            Personnage personnageEnemie = new Personnage();
-            personnageEnemie._pseudo = "Adrien";
-            personnageEnemie.InitPersonnage();
+            Personnage personnageEnnemie = new Personnage();
+            personnageEnnemie._pseudo = "Adrien";
+            personnageEnnemie.InitPersonnage();
 
             int jetDe = rnd1.Next(0, 101);
+
+            
 
             do
             {
                 jetDe = rnd1.Next(0, 101);
-                if (jetDe <= personnagePrincipal._valeurDattaque)
+                if (jetDe <= personnagePrincipal._valeurDattaque && jetDe > 50)
                 {
-                    personnageEnemie.PrendreDesDegats(personnagePrincipal._pointDeDegat);
-                    Console.WriteLine("{0} a touché {1}, le jet de dés a fait {2} ",personnagePrincipal._pseudo, personnageEnemie._pseudo, jetDe);
-                    Console.WriteLine("{0} il te reste {1}", personnageEnemie._pseudo, personnageEnemie._pointDeVie);
+                    Console.WriteLine("Esquive {0}",jetDe);
                 }
+                else if (jetDe <= personnagePrincipal._valeurDattaque)
+                {
+                    personnageEnnemie.PrendreDesDegats(personnagePrincipal._pointDeDegat);
+                    Console.WriteLine("{0} a touché {1}, le jet de dés a fait {2} ", personnagePrincipal._pseudo, personnageEnnemie._pseudo, jetDe);
+                    Console.WriteLine("{0} il te reste {1}", personnageEnnemie._pseudo, personnageEnnemie._pointDeVie);
+                }
+                                
                 else
                 {
-                    Console.WriteLine("{0} a loupé {1}", personnagePrincipal._pseudo, personnageEnemie._pseudo);
+                    Console.WriteLine("{0} a loupé {1}", personnagePrincipal._pseudo, personnageEnnemie._pseudo);
                 }
                 Console.ReadKey();
-                if (personnageEnemie._pointDeVie<=0)
+                if (personnageEnnemie._pointDeVie<=0)
                 {
                     break;
                 }
 
                 jetDe = rnd1.Next(0, 101);
-                if (jetDe <= personnageEnemie._valeurDattaque)
+                if (jetDe <= personnageEnnemie._valeurDattaque)
                 {
-                    personnagePrincipal.PrendreDesDegats(personnageEnemie._pointDeDegat);
-                    Console.WriteLine("{0} a touché {1}, le jet de dés a fait {2} ", personnageEnemie._pseudo, personnagePrincipal._pseudo, jetDe);
+                    personnagePrincipal.PrendreDesDegats(personnageEnnemie._pointDeDegat);
+                    Console.WriteLine("{0} a touché {1}, le jet de dés a fait {2} ", personnageEnnemie._pseudo, personnagePrincipal._pseudo, jetDe);
                     Console.WriteLine("{0} il te reste {1}", personnagePrincipal._pseudo, personnagePrincipal._pointDeVie);
                 }
                 else
                 {
-                    Console.WriteLine("{1} a loupé {0}", personnagePrincipal._pseudo, personnageEnemie._pseudo);
+                    Console.WriteLine("{1} a loupé {0}", personnagePrincipal._pseudo, personnageEnnemie._pseudo);
                 }
                 Console.ReadKey();
-            } while (!(personnageEnemie._pointDeVie <= 0 || personnagePrincipal._pointDeVie <=0));
+            } while (!(personnageEnnemie._pointDeVie <= 0 || personnagePrincipal._pointDeVie <=0));
 
 
 

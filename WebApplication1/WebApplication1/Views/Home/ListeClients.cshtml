@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "ListeClients";
+}
+
+<body>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Age</th>
+        </tr>
+        @foreach (WebApplication1.Models.Client client in ViewData["Clients"] as List<WebApplication1.Models.Client>)
+        {
+            <tr>
+                <td>@client.Nom</td>
+                <td>@client.Age</td>
+            </tr>
+        }
+    </table>
+</body>
+
